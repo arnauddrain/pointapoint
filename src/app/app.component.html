@@ -25,12 +25,11 @@
   Image url : <input [(ngModel)]="backgroundUrl">
 </div>
 <div>
-  Largeur : <input [(ngModel)]="width">
+  Largeur : <input type="number" [(ngModel)]="width">
 </div>
 <div>
-  Hauteur : <input [(ngModel)]="height">
+  Hauteur : <input type="number" [(ngModel)]="height">
 </div>
-
 <button (click)="undo()">Annuler</button>
 <button (click)="save()">Sauvegarder</button>
 

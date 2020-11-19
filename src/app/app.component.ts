@@ -9,9 +9,9 @@ export class AppComponent {
   points: { x: number, y: number }[] = [];
   showLines: boolean = true;
   showImage: boolean = true;
-  backgroundUrl: string = '';
-  width: string;
-  height: string;
+  width = 200;
+  height = 200;
+  _backgroundUrl: string = '';
 
   onClick(event: any) {
     this.points.push({
@@ -35,6 +35,21 @@ export class AppComponent {
       });
     }
     return lines;
+  }
+
+  set backgroundUrl(value: string) {
+    this._backgroundUrl = value;
+    const image = new Image();
+    image.onload = (event) => {
+      const loadedImage: any = event.currentTarget;
+      this.width = loadedImage.width;
+      this.height = loadedImage.height;
+    }
+    image.src = this.backgroundUrl;
+  }
+
+  get backgroundUrl(): string {
+    return this._backgroundUrl;
   }
 
   save() {
