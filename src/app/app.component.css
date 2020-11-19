@@ -2,3 +2,30 @@ svg {
   border: 1px solid black;
   display: block;
 }
+
+.content {
+  padding: 20px;
+  margin: auto;
+  text-align: center;
+}
+
+.content svg {
+  margin: auto;
+}
+
+section {
+  margin: 10px auto;
+  max-width: 300px;
+}
+
+mat-checkbox {
+  margin: 0 10px;
+}
+
+mat-form-field {
+  display: block;
+}
+
+button {
+  margin: 0 5px;
+}
