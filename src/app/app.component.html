@@ -1,48 +1,54 @@
 <mat-toolbar color="primary">
   <span>Point à point</span>
+  <div class="flex-spacer"></div>
+  <a mat-button href="https://github.com/arnauddrain/pointapoint">
+    <img src="assets/github.svg">
+  </a>
 </mat-toolbar>
 
-<div class="content">
-  <svg [attr.width]="width" [attr.height]="height" (click)="onClick($event)" id="canvas">
-    <image *ngIf="showImage" [attr.href]="backgroundUrl"></image>
-    <circle *ngFor="let point of points" [attr.cx]="point.x" [attr.cy]="point.y" r="2" fill="black" />
-    <text *ngFor="let point of points; let i = index" [attr.x]="point.x + 1" [attr.y]="point.y - 2"
-      class="small">{{ i }}</text>
-    <g *ngIf="showLines">
-      <line *ngFor="let line of getLines()" [attr.x1]="line.x1" [attr.y1]="line.y1" [attr.x2]="line.x2"
-        [attr.y2]="line.y2" stroke="black" />
-    </g>
-  </svg>
+<div class="global-content">
+  <div class="content">
+    <svg [attr.width]="width" [attr.height]="height" (click)="onClick($event)" id="canvas">
+      <image *ngIf="showImage" [attr.href]="backgroundUrl"></image>
+      <circle *ngFor="let point of points" [attr.cx]="point.x" [attr.cy]="point.y" r="2" fill="black" />
+      <text *ngFor="let point of points; let i = index" [attr.x]="point.x + 1" [attr.y]="point.y - 2"
+        class="small">{{ i }}</text>
+      <g *ngIf="showLines">
+        <line *ngFor="let line of getLines()" [attr.x1]="line.x1" [attr.y1]="line.y1" [attr.x2]="line.x2"
+          [attr.y2]="line.y2" stroke="black" />
+      </g>
+    </svg>
 
+    <section>
+      <mat-checkbox [(ngModel)]="showLines">Traits</mat-checkbox>
+      <mat-checkbox [(ngModel)]="showImage">Image</mat-checkbox>
+    </section>
 
-  <section>
-    <mat-checkbox [(ngModel)]="showLines">Traits</mat-checkbox>
-    <mat-checkbox [(ngModel)]="showImage">Image</mat-checkbox>
-  </section>
-
-  <section>
-    <mat-form-field>
-      <mat-label>URL de l'image</mat-label>
-      <input matInput [(ngModel)]="backgroundUrl">
-      <button mat-button *ngIf="backgroundUrl" matSuffix mat-icon-button aria-label="Clear" (click)="backgroundUrl=''">
-        <mat-icon>close</mat-icon>
+    <section>
+      <mat-form-field>
+        <mat-label>URL de l'image</mat-label>
+        <input matInput [(ngModel)]="backgroundUrl">
+        <button mat-button *ngIf="backgroundUrl" matSuffix mat-icon-button aria-label="Clear"
+          (click)="backgroundUrl=''">
+          <mat-icon>close</mat-icon>
+        </button>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Largeur</mat-label>
+        <input matInput type="number" [(ngModel)]="width">
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Hauteur</mat-label>
+        <input matInput type="number" [(ngModel)]="height">
+      </mat-form-field>
+      <button mat-raised-button color="basic" (click)="undo()">
+        <mat-icon>undo</mat-icon> Annuler
       </button>
-    </mat-form-field>
-    <mat-form-field>
-      <mat-label>Largeur</mat-label>
-      <input matInput type="number" [(ngModel)]="width">
-    </mat-form-field>
-    <mat-form-field>
-      <mat-label>Hauteur</mat-label>
-      <input matInput type="number" [(ngModel)]="height">
-    </mat-form-field>
-    <button mat-raised-button color="basic" (click)="undo()">
-      <mat-icon>undo</mat-icon> Annuler
-    </button>
-    <button mat-raised-button color="primary" (click)="save()">
-      Sauvegarder <mat-icon>get_app</mat-icon>
-    </button>
-  </section>
+      <button mat-raised-button color="primary" (click)="save()">
+        Sauvegarder <mat-icon>get_app</mat-icon>
+      </button>
+    </section>
 
-  <a id="link" download="file.svg"></a>
+    <a id="link" download="file.svg"></a>
+  </div>
 </div>
