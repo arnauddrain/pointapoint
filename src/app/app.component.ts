@@ -11,11 +11,15 @@ export class AppComponent implements OnInit {
   showImage: boolean = true;
   width = 200;
   height = 200;
-  _backgroundUrl: string = '';
+  _spacing: number;
+  _fontSize: number;
+  _backgroundUrl: string;
 
   ngOnInit() {
     this.backgroundUrl = localStorage.getItem('backgroundUrl');
     this.points = JSON.parse(localStorage.getItem('points')) ?? [];
+    this.spacing = Number(localStorage.getItem('spacing') ?? '2');
+    this.fontSize = Number(localStorage.getItem('fontSize') ?? '10');
   }
 
   savePoints() {
@@ -62,6 +66,24 @@ export class AppComponent implements OnInit {
 
   get backgroundUrl(): string {
     return this._backgroundUrl;
+  }
+
+  set fontSize(value: number) {
+    this._fontSize = value;
+    localStorage.setItem('fontSize', value.toString());
+  }
+
+  get fontSize(): number {
+    return this._fontSize;
+  }
+
+  set spacing(value: number) {
+    this._spacing = value;
+    localStorage.setItem('spacing', value.toString());
+  }
+
+  get spacing(): number {
+    return this._spacing;
   }
 
   save() {
