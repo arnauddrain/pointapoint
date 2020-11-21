@@ -104,6 +104,7 @@ export class AppComponent implements OnInit {
 
   onMouseUp() {
     this.dragOver = true;
+    this.savePoints();
   }
 
   onMouseMove(event: MouseEvent) {
