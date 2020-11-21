@@ -11,7 +11,7 @@
     <svg [attr.width]="width" [attr.height]="height" (click)="onClick($event)" id="canvas">
       <image *ngIf="showImage" [attr.href]="backgroundUrl"></image>
       <circle *ngFor="let point of points" [attr.cx]="point.x" [attr.cy]="point.y" r="2" fill="black" />
-      <text *ngFor="let point of points; let i = index" [attr.x]="point.x + 1" [attr.y]="point.y - 2"
+      <text *ngFor="let point of points; let i = index" [attr.x]="point.x + 3" [attr.y]="point.y - 3"
         class="small">{{ i }}</text>
       <g *ngIf="showLines">
         <line *ngFor="let line of getLines()" [attr.x1]="line.x1" [attr.y1]="line.y1" [attr.x2]="line.x2"
