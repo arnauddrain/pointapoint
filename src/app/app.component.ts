@@ -1,11 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   points: { x: number, y: number }[] = [];
   showLines: boolean = true;
   showImage: boolean = true;
@@ -13,15 +13,26 @@ export class AppComponent {
   height = 200;
   _backgroundUrl: string = '';
 
+  ngOnInit() {
+    this.backgroundUrl = localStorage.getItem('backgroundUrl');
+    this.points = JSON.parse(localStorage.getItem('points')) ?? [];
+  }
+
+  savePoints() {
+    localStorage.setItem('points', JSON.stringify(this.points));
+  }
+
   onClick(event: any) {
     this.points.push({
       x: event.offsetX,
       y: event.offsetY
     });
+    this.savePoints();
   }
 
   undo() {
     this.points.pop();
+    this.savePoints();
   }
 
   getLines() {
@@ -39,6 +50,7 @@ export class AppComponent {
 
   set backgroundUrl(value: string) {
     this._backgroundUrl = value;
+    localStorage.setItem('backgroundUrl', value);
     const image = new Image();
     image.onload = (event) => {
       const loadedImage: any = event.currentTarget;
