@@ -8,9 +8,11 @@
 
 <div class="global-content">
   <div class="content">
-    <svg [attr.width]="width" [attr.height]="height" (click)="onClick($event)" id="canvas">
+    <svg [attr.width]="width" [attr.height]="height" (click)="onClick($event)" id="canvas"
+      (mousemove)="onMouseMove($event)" (mouseup)="onMouseUp()">
       <image *ngIf="showImage" [attr.href]="backgroundUrl"></image>
-      <circle *ngFor="let point of points" [attr.cx]="point.x" [attr.cy]="point.y" r="2" fill="black" />
+      <circle *ngFor="let point of points" [attr.cx]="point.x" [attr.cy]="point.y" r="2" fill="black"
+        (mousedown)="onMouseDown(point)" />
       <text *ngFor="let point of points; let i = index" [attr.x]="point.x + spacing" [attr.y]="point.y - spacing"
         [attr.font-size]="fontSize" class="small">{{ i }}</text>
       <g *ngIf="showLines">

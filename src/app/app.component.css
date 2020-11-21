@@ -11,6 +11,10 @@ svg text {
   pointer-events: none;
 }
 
+svg circle {
+  cursor: pointer;
+}
+
 .content {
   padding: 20px;
   margin: auto;

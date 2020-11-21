@@ -1,4 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
+
+class Point {
+  x: number;
+  y: number;
+}
 
 @Component({
   selector: 'app-root',
@@ -6,14 +11,16 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  points: { x: number, y: number }[] = [];
+  points: Point[] = [];
   showLines: boolean = true;
   showImage: boolean = true;
+  dragOver: boolean = false;
   width = 200;
   height = 200;
   _spacing: number;
   _fontSize: number;
   _backgroundUrl: string;
+  selectedPoint: Point;
 
   ngOnInit() {
     this.backgroundUrl = localStorage.getItem('backgroundUrl');
@@ -27,11 +34,16 @@ export class AppComponent implements OnInit {
   }
 
   onClick(event: any) {
-    this.points.push({
-      x: event.offsetX,
-      y: event.offsetY
-    });
-    this.savePoints();
+    if (!this.selectedPoint) {
+      this.points.push({
+        x: event.offsetX,
+        y: event.offsetY
+      });
+      this.savePoints();
+    }
+    if (this.dragOver) {
+      this.selectedPoint = null;
+    }
   }
 
   undo() {
@@ -84,6 +96,21 @@ export class AppComponent implements OnInit {
 
   get spacing(): number {
     return this._spacing;
+  }
+
+  onMouseDown(point: Point) {
+    this.selectedPoint = point;
+  }
+
+  onMouseUp() {
+    this.dragOver = true;
+  }
+
+  onMouseMove(event: MouseEvent) {
+    if (this.selectedPoint) {
+      this.selectedPoint.x += event.movementX;
+      this.selectedPoint.y += event.movementY;
+    }
   }
 
   save() {
